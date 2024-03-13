@@ -1,6 +1,9 @@
 package fakeSpeare;
 
-public abstract class AbstractPizza extends main {
+import java.util.List;
+import java.util.ArrayList;
+
+public abstract class AbstractPizza{
 	protected List<Toppings> toppingList;
     protected double priceWithoutToppings;
     protected double totalPrice;
@@ -9,7 +12,7 @@ public abstract class AbstractPizza extends main {
     protected ICookingStrategy cookingStrategy;
     protected double cookingPrice;
 
-    public AbstractPizza() {
+    protected AbstractPizza() {
         this.toppingList = new ArrayList<>();
         // Increment and assign the orderIDCounter for each pizza instance.
         this.pizzaOrderID = ++orderIDCounter;
@@ -19,7 +22,7 @@ public abstract class AbstractPizza extends main {
 
     // Updates the pizza price based on the base price, toppings, and any cooking strategy cost
     public void updatePizzaPrice() {
-        double toppingsPrice = toppingList.stream().mapToDouble(Toppings::getPrice).sum();
+        double toppingsPrice = toppingList.stream().mapToDouble(Toppings::getToppingPrice).sum();
         this.totalPrice = this.priceWithoutToppings + toppingsPrice + this.cookingPrice;
     }
 
@@ -33,17 +36,17 @@ public abstract class AbstractPizza extends main {
 
     // Getters and Setters
     public int getPizzaOrderID() {
-        return pizzaOrderID;
+        return this.pizzaOrderID;
     }
 
     public double getTotalPrice() {
-        return totalPrice;
+        return this.totalPrice;
     }
 
     public List<Toppings> getToppingList() {
-        return toppingList;
+        return this.toppingList;
     }
-
+    
     // Adds a new topping to the pizza and updates the total price
     public void addTopping(Toppings topping) {
         if (!toppingList.contains(topping)) {

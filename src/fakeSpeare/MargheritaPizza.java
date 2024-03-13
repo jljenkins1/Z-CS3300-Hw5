@@ -1,22 +1,38 @@
 package fakeSpeare;
 
-public class MargheritaPizza extends AbstractPizza {
-	super();
-    this.priceWithoutToppings = 2.50;
-    toppingList.add(Toppings.TOMATO);
-    toppingList.add(Toppings.CHEESE);
-    updatePizzaPrice();
-	}
+public class MargheritaPizza extends AbstractPizza{
 
-	// Constructor and other required methods.
+	public MargheritaPizza() {
+		super();
+	    this.priceWithoutToppings = 2.50;
+	    addDefaultToppings();
+	    updatePizzaPrice();
+		}
 
-	@Override
-	protected double addTopingsToPrice(double priceWithoutToppings) {
-    // Logic to add the price of toppings to priceWithoutToppings.
-	}
+		// Constructor and other required methods.
+		
+		@Override
+		protected void addDefaultToppings() {
+		    toppingList.add(Toppings.TOMATO);
+	        toppingList.add(Toppings.CHEESE);
+		}
+		
 
-	@Override
-	public double updatePizzaPrice() {
-    // Logic to update totalPrice based on toppings and priceWithoutToppings.
+		protected double addTopingsToPrice(double priceWithoutToppings) {
+			double toppingsPrice = 0;
+			for (Toppings topping : toppingList) {
+				toppingsPrice +=topping.getToppingPrice();
+			}
+			return toppingsPrice;
+	    // Logic to add the price of toppings to priceWithoutToppings.
+		}
+
+		@Override
+		public void updatePizzaPrice() {
+	    // Logic to update totalPrice based on toppings and priceWithoutToppings.
+			double toppingsPrice = addTopingsToPrice(priceWithoutToppings);
+	        this.totalPrice = this.priceWithoutToppings + toppingsPrice + this.cookingPrice;
+		}
+
+
 	}
-}
