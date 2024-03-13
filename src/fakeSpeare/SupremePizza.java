@@ -18,7 +18,7 @@ public class SupremePizza {
 		// Constructor and other required methods.
 
 		@Override
-		protected double addTopingsToPrice(double priceWithoutToppings) {
+		protected double addToppingsToPrice(double priceWithoutToppings) {
 	    // Logic to add the price of toppings to priceWithoutToppings.
 		}
 

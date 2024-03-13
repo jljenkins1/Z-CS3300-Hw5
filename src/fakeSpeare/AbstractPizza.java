@@ -15,10 +15,61 @@ public abstract class AbstractPizza extends main {
         this.pizzaOrderID = ++orderIDCounter;
     }
 
-    // Getters and setters for each attribute.
+    protected abstract void addDefaultToppings();
 
-    protected abstract double addTopingsToPrice(double priceWithoutToppings);
-    public abstract double updatePizzaPrice();
-}
+    // Updates the pizza price based on the base price, toppings, and any cooking strategy cost
+    public void updatePizzaPrice() {
+        double toppingsPrice = toppingList.stream().mapToDouble(Toppings::getPrice).sum();
+        this.totalPrice = this.priceWithoutToppings + toppingsPrice + this.cookingPrice;
+    }
 
+    // Sets the cooking strategy and updates the price based on the strategy chosen
+    public void setCookingStrategy(ICookingStrategy cookingStrategy) {
+        this.cookingStrategy = cookingStrategy;
+        if (cookingStrategy != null) {
+            cookingStrategy.cook(this); // This will also update the total price
+        }
+    }
+
+    // Getters and Setters
+    public int getPizzaOrderID() {
+        return pizzaOrderID;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public List<Toppings> getToppingList() {
+        return toppingList;
+    }
+
+    // Adds a new topping to the pizza and updates the total price
+    public void addTopping(Toppings topping) {
+        if (!toppingList.contains(topping)) {
+            toppingList.add(topping);
+            updatePizzaPrice();
+        }
+    }
+
+    // Removes a topping from the pizza and updates the total price
+    public boolean removeTopping(Toppings topping) {
+        boolean removed = toppingList.remove(topping);
+        if (removed) {
+            updatePizzaPrice();
+        }
+        return removed;
+    }
+
+    @Override
+    public String toString() {
+        return "Pizza{" +
+                "ID=" + pizzaOrderID +
+                ", Base Price=" + priceWithoutToppings +
+                ", Cooking Price=" + cookingPrice +
+                ", Total Price=" + totalPrice +
+                ", Toppings=" + toppingList +
+                ", Cooking Strategy=" + (cookingStrategy != null ? cookingStrategy.getClass().getSimpleName() : "None") +
+                '}';
+    }
 }
