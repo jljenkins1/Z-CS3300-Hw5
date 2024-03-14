@@ -30,7 +30,7 @@ public class HawaiianPizza extends AbstractPizza{
 
 		@Override
 		public void updatePizzaPrice() {
-	    // Logic to update totalPrice based on topings and priceWithoutToppings.
+	    // Logic to update totalPrice based on toppings and priceWithoutToppings.
 			double toppingsPrice = addTopingsToPrice(priceWithoutToppings);
 	        this.totalPrice = this.priceWithoutToppings + toppingsPrice + this.cookingPrice;
 		}
