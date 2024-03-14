@@ -48,11 +48,13 @@ public abstract class AbstractPizza{
     }
     
     // Adds a new topping to the pizza and updates the total price
-    public void addTopping(Toppings topping) {
+    public boolean addTopping(Toppings topping) {
         if (!toppingList.contains(topping)) {
             toppingList.add(topping);
             updatePizzaPrice();
+            return true;
         }
+        return false;
     }
 
     // Removes a topping from the pizza and updates the total price
@@ -63,7 +65,7 @@ public abstract class AbstractPizza{
         }
         return removed;
     }
-
+    //ToString method for All info on instance of pizza
     @Override
     public String toString() {
         return "Pizza{" +

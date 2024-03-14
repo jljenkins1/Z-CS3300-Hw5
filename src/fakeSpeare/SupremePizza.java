@@ -9,7 +9,7 @@ public class SupremePizza extends AbstractPizza{
 	    updatePizzaPrice();
 		}
 
-		// Constructor and other required methods.
+		// Constructor
 		
 		@Override
 		protected void addDefaultToppings() {
@@ -29,12 +29,12 @@ public class SupremePizza extends AbstractPizza{
 				toppingsPrice +=topping.getToppingPrice();
 			}
 			return toppingsPrice;
-	    // Logic to add the price of toppings to priceWithoutToppings.
+	    // sum price of toppings
 		}
 
 		@Override
 		public void updatePizzaPrice() {
-	    // Logic to update totalPrice based on toppings and priceWithoutToppings.
+	    // Uupdate totalPrice based on toppings and priceWithoutToppings.
 			double toppingsPrice = addTopingsToPrice(priceWithoutToppings);
 	        this.totalPrice = this.priceWithoutToppings + toppingsPrice + this.cookingPrice;
 		}
